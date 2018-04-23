@@ -35,28 +35,33 @@
     "lint": "eslint src --ext js,jsx --fix",
     "typecheck": "flow",
     "remove-types": "flow-remove-types --out-dir out/ src/ && eslint out --ext js,jsx --fix",
-    "prepublish": "npm test && npm build",
+    "prepublishOnly": "npm test && npm build",
     "git-add": "git add lib demo dll",
-    "typed": "flow-typed install --skip"
+    "typed": "flow-typed install --skip",
+    "convert-ts": "NODE_ENV=ts babel src/SlideShow.jsx -o src/SlideShow.tsx"
   },
   "dependencies": {
+    "@babel/preset-flow": "7.0.0-beta.44",
     "react": "^16.3.2",
     "recompose": "^0.26.0",
     "toggle-fullscreen": "^0.3.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
+    "@babel/cli": "7.0.0-beta.44",
+    "@babel/core": "7.0.0-beta.44",
+    "@babel/plugin-proposal-class-properties": "7.0.0-beta.44",
+    "@babel/plugin-syntax-flow": "7.0.0-beta.44",
+    "@babel/plugin-transform-flow-strip-types": "7.0.0-beta.44",
+    "@babel/plugin-transform-object-assign": "7.0.0-beta.44",
+    "@babel/polyfill": "7.0.0-beta.44",
+    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/preset-flow": "7.0.0-beta.44",
+    "@babel/preset-react": "7.0.0-beta.44",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^22.4.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-syntax-flow": "^6.18.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-transform-object-assign": "^6.22.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-react": "^6.24.1",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-plugin-flow-to-typescript": "^0.2.0",
     "browser-env": "^3.2.5",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -71,7 +76,6 @@
     "flow-remove-types": "^1.2.1",
     "flow-typed": "^2.4.0",
     "jest": "^22.4.3",
-    "pre-commit": "^1.2.2",
     "prettier": "^1.12.1",
     "prop-types": "^15.6.1",
     "react-dom": "^16.3.2",
@@ -87,7 +91,7 @@
       "development": {
         "presets": [
           [
-            "env",
+            "@babel/preset-env",
             {
               "targets": {
                 "browsers": [
@@ -97,17 +101,17 @@
               "useBuiltIns": true
             }
           ],
-          "react"
+          "@babel/preset-react"
         ],
         "plugins": [
-          "transform-class-properties",
-          "transform-object-assign"
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-transform-object-assign"
         ]
       },
       "production": {
         "presets": [
           [
-            "env",
+            "@babel/preset-env",
             {
               "targets": {
                 "browsers": [
@@ -118,34 +122,39 @@
               "useBuiltIns": true
             }
           ],
-          "react"
+          "@babel/preset-react"
         ],
         "plugins": [
-          "transform-class-properties",
-          "transform-object-assign"
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-transform-object-assign"
         ]
       },
       "test": {
         "presets": [
           [
-            "env",
+            "@babel/preset-env",
             {
               "targets": {
                 "node": "current"
               }
             }
           ],
-          "react"
+          "@babel/preset-react"
         ],
         "plugins": [
-          "transform-class-properties",
-          "transform-object-assign"
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-transform-object-assign"
+        ]
+      },
+      "ts": {
+        "presets": [
+          "@babel/preset-react"
+        ],
+        "plugins": [
+          "@babel/plugin-proposal-class-properties",
+          "babel-plugin-flow-to-typescript"
         ]
       }
     }
-  },
-  "pre-commit": [
-    "build:all",
-    "git-add"
-  ]
+  }
 }

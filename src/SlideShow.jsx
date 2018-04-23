@@ -355,7 +355,7 @@ SlideShow.defaultProps = {
  * @property {function} pageWillUpdate
  * @property {React.Element<any>} children
  */
-export type Props = {
+type Props = {
   style: Object,
   images: Array<string>,
   prevIcon: React.Element<any>,
@@ -376,7 +376,7 @@ export type Props = {
  * @property {number} previewIndex
  * @property {boolean} isFullScreen
  */
-export type State = {
+type State = {
   src: string,
   index: number,
   progress: number,
